@@ -1,7 +1,4 @@
 ﻿using System;
-using System.ComponentModel;
-using System.Numerics;
-using System.Reflection;
 using System.Threading;
 
 namespace GameOfLife
