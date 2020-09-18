@@ -30,7 +30,6 @@ namespace GameOfLife
             Setup();
         }
 
-
         static void Setup()
         {
             Console.SetWindowSize(cols, rows);
@@ -40,9 +39,13 @@ namespace GameOfLife
 
             //Adding values to array
             for (int i = 0; i < cols; i++)
+            {
                 for (int j = 0; j < rows; j++)
+                {
                     current[i, j] = random.Next(0, 2);
-           
+                }
+            }
+
             while (start)
             {
                 RenderOnScreen();
@@ -70,13 +73,11 @@ namespace GameOfLife
                 }
             }
 
-
             for (int i = 0; i < cols; i++)
             {
                 for (int j = 0; j < rows; j++)
                 {
                     int state = current[i, j];
-
                     int neighbors = CountNeighbors(current, i, j);
 
                     if (state == 0 && neighbors == 3)
@@ -91,7 +92,6 @@ namespace GameOfLife
                     {
                         comming[i, j] = state;
                     }
-
                 }
             }
 
@@ -103,6 +103,7 @@ namespace GameOfLife
         {
             int sum = 0;
             for (int i = -1; i < 2; i++)
+            {
                 for (int j = -1; j < 2; j++)
                 {
                     int col = (x + i + cols) % cols;
@@ -110,9 +111,9 @@ namespace GameOfLife
 
                     sum += cells[col, row];
                 }
+            }
 
             sum -= cells[x, y];
-
             return sum;
         }
     }
