@@ -13,16 +13,19 @@ namespace GameOfLife
         static int rows = 30;
         static string aliveCells = "";
         static string deadCells = "";
+        static bool start = false;
         static int[,] current = new int[cols, rows];
         static int[,] comming = new int[cols, rows];
         static Random random = new Random();
 
         static void Main(string[] args)
         {
-            Console.Write("Enter character for alive cells:  ");
+            Console.Write("Enter character for alive cells: ");
             aliveCells = Console.ReadLine();
-            Console.Write("Enter character for dead cells:  ");
+            Console.Write("Enter character for dead cells: ");
             deadCells = Console.ReadLine();
+            Console.Write("Press Enter To Start: ");
+            start = Console.ReadKey().Key == ConsoleKey.Enter;
 
             Setup();
         }
@@ -39,10 +42,7 @@ namespace GameOfLife
             for (int i = 0; i < cols; i++)
                 for (int j = 0; j < rows; j++)
                     current[i, j] = random.Next(0, 2);
-
-            Console.Write("Press Enter To Start:    ");
-            var start = Console.ReadKey().Key == ConsoleKey.Enter;
-
+           
             while (start)
             {
                 RenderOnScreen();
