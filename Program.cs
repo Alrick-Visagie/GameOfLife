@@ -13,7 +13,8 @@ namespace GameOfLife
         static int rows = 30;
         static string aliveCells = "";
         static string deadCells = "";
-        static int[,] cells = new int[cols, rows];
+        static int[,] current = new int[cols, rows];
+        static int[,] comming = new int[cols, rows];
         static void Main(string[] args)
         {
             Console.Write("Enter character for alive cells:  ");
@@ -27,10 +28,8 @@ namespace GameOfLife
 
         static void Setup()
         {
-
-            Console.BackgroundColor = ConsoleColor.Black;
             Console.SetWindowSize(cols, rows);
-            Console.SetBufferSize(cols, rows);
+            Console.SetBufferSize(cols * 2 , rows * 2);
             Console.CursorSize = cols;
 
 
@@ -39,7 +38,7 @@ namespace GameOfLife
             //Adding values to array
             for (int i = 0; i < cols; i++)
                 for (int j = 0; j < rows; j++)
-                    cells[i, j] = random.Next(0, 2);
+                    current[i, j] = random.Next(0, 2);
 
             while (true)
             {
@@ -49,19 +48,21 @@ namespace GameOfLife
 
         static void RenderOnScreen()
         {
-            int[,] cells2 = new int[cols, rows];
+            
 
             for (int i = 0; i < cols; i++)
             {
                 for (int j = 0; j < rows; j++)
                 {
-                    if (cells[i, j] == 1)
+                    if (current[i, j] == 1)
                     {
+                        Console.SetCursorPosition(i, j);
                         Console.ForegroundColor = ConsoleColor.Green;
                         Console.Write(aliveCells + " ");
                     }
-                    if (cells[i, j] == 0)
+                    if (current[i, j] == 0)
                     {
+                        Console.SetCursorPosition(i, j);
                         Console.ForegroundColor = ConsoleColor.White;
                         Console.Write(deadCells + " ");
                     }
@@ -73,27 +74,28 @@ namespace GameOfLife
             {
                 for (int j = 0; j < rows; j++)
                 {
-                    int state = cells[i, j];
+                    int state = current[i, j];
 
-                    int neighbors = CountNeighbors(cells, i, j);
+                    int neighbors = CountNeighbors(current, i, j);
 
                     if (state == 0 && neighbors == 3)
                     {
-                        cells2[i, j] = 1;
+                        comming[i, j] = 1;
                     }
                     else if (state == 1 && (neighbors < 2 || neighbors > 3))
                     {
-                        cells2[i, j] = 0;
+                        comming[i, j] = 0;
                     }
                     else
                     {
-                        cells2[i, j] = state;
+                        comming[i, j] = state;
                     }
 
                 }
             }
-            cells = cells2;
-            Thread.Sleep(200);
+
+            Array.Copy(comming, current, cols * rows);
+            Thread.Sleep(50);
         }
 
         static int CountNeighbors(int[,] cells, int x, int y)
