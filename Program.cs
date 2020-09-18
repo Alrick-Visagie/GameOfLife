@@ -32,7 +32,8 @@ namespace GameOfLife
         {
             Console.SetWindowSize(cols, rows);
             Console.SetBufferSize(cols * 2 , rows * 2);
-            Console.CursorSize = cols;
+            Console.BackgroundColor = ConsoleColor.Black;
+            Console.CursorVisible = false;
 
             //Adding values to array
             for (int i = 0; i < cols; i++)
@@ -58,13 +59,13 @@ namespace GameOfLife
                     {
                         Console.SetCursorPosition(i, j);
                         Console.ForegroundColor = ConsoleColor.Green;
-                        Console.Write(aliveCells + " ");
+                        Console.Write(aliveCells);
                     }
                     if (current[i, j] == 0)
                     {
                         Console.SetCursorPosition(i, j);
                         Console.ForegroundColor = ConsoleColor.White;
-                        Console.Write(deadCells + " ");
+                        Console.Write(deadCells);
                     }
                 }
             }
