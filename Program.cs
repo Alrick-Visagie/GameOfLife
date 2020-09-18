@@ -33,7 +33,7 @@ namespace GameOfLife
         static void Setup()
         {
             Console.SetWindowSize(cols, rows);
-            Console.SetBufferSize(cols * 2 , rows * 2);
+            Console.SetBufferSize(cols * 2, rows * 2);
             Console.BackgroundColor = ConsoleColor.Black;
             Console.CursorVisible = false;
 
@@ -53,7 +53,7 @@ namespace GameOfLife
         }
 
         static void RenderOnScreen()
-        {          
+        {
             for (int i = 0; i < cols; i++)
             {
                 for (int j = 0; j < rows; j++)
