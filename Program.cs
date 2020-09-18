@@ -15,6 +15,8 @@ namespace GameOfLife
         static string deadCells = "";
         static int[,] current = new int[cols, rows];
         static int[,] comming = new int[cols, rows];
+        static Random random = new Random();
+
         static void Main(string[] args)
         {
             Console.Write("Enter character for alive cells:  ");
@@ -32,24 +34,22 @@ namespace GameOfLife
             Console.SetBufferSize(cols * 2 , rows * 2);
             Console.CursorSize = cols;
 
-
-            var random = new Random();
-
             //Adding values to array
             for (int i = 0; i < cols; i++)
                 for (int j = 0; j < rows; j++)
                     current[i, j] = random.Next(0, 2);
 
-            while (true)
+            Console.Write("Press Enter To Start:    ");
+            var start = Console.ReadKey().Key == ConsoleKey.Enter;
+
+            while (start)
             {
                 RenderOnScreen();
             }
         }
 
         static void RenderOnScreen()
-        {
-            
-
+        {          
             for (int i = 0; i < cols; i++)
             {
                 for (int j = 0; j < rows; j++)
@@ -106,6 +106,7 @@ namespace GameOfLife
                 {
                     int col = (x + i + cols) % cols;
                     int row = (y + j + rows) % rows;
+
                     sum += cells[col, row];
                 }
 
